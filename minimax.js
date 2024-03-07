@@ -2,6 +2,10 @@
 const X = "X";
 const O = "O";
 
+let ai = X;
+let human = O;
+
+
 // Given a board (9 total spaces), return the spaces that are empty
 function getPossibleChoices(board){
     return board.filter(isEmptySpot);
@@ -50,9 +54,55 @@ function hasWon(board, player){
     return false;
 }
 
-
+// Given a list of moves, and the player (either ai or human), gets the best move
+// Gets move with max value for ai
+// Gets move with min value for human
+// Assumes moves array has at least 1 move
 function bestValue(moves, player){
-    return null;
+    if (moves.length == 1){return moves[0];}
+
+    const startValToMaximize = -100;
+    const startValToMinize = 100;
+
+
+    // ai wants to maximize the value
+    if (player == ai){
+        return computeBestValue(moves, compareMaximize, startValToMaximize);
+    }
+    return computeBestValue(moves, compareMinimize, startValToMinize);
+    
+
+}
+
+// Gets the best value given the moves, a function that determines if this move is better
+function computeBestValue(moves, comparingFunction, startValue){
+
+    let bestVal = startValue;
+    let bestMove = null;
+
+    for (let i = 0; i < moves.length; ++i){
+        if (comparingFunction(bestVal, moves[i].value)){
+            bestVal = moves[i].value;
+            bestMove = moves[i];
+        }
+    }
+    return bestMove;
+}
+
+// returns true if the currVal is larger than the bestVal
+function compareMinimize(bestVal, currVal){
+    if (currVal < bestVal){
+        return true;
+    }
+    return false;
+}
+
+// returns true if the currVal is smaller than the bestVal
+function compareMaximize(bestVal, currVal){
+    if (currVal > bestVal){
+        return true;
+    }
+    return false;
 }
 
 module.exports = {getPossibleChoices, hasWon, bestValue};

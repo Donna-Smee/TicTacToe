@@ -6,8 +6,6 @@ const O = "O";
 let ai = X;
 let human = O;
 
-const startValToMaximize = -100;
-const startValToMinize = 100;
 
 const maxVal = 10;
 const minVal = -10;
