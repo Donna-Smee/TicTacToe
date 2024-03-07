@@ -1,0 +1,37 @@
+Functions needed:
+    - function that returns all the possible choices (empty spaces on the board)
+    - function that returns win/loss state
+    - function that returns the best move
+
+
+General path? 
+
+    // main function that returns the best next move
+    // if there are no more moves, return the value (1, -1, or 0)
+    playTicTacToe(board, player):
+
+        // checks if terminal state, if so return value
+
+        // if not terminal state, must choose a move
+        1. Get all the possible moves
+        2. For each move: put that move in there, call the function (recursion)
+        3. Out of all the moves, choose the best one, return it
+
+
+
+So basically, it returns the best move for the given player.
+If the game ended, you don't need to call this function, so when playing the actual game
+    Either call this function and know the game ended with the score
+    Or check for terminal state before calling this function.
+
+
+
+
+TIC TAC TOE BOARD
+[
+    [ _ _ _ ] // 0, 1, 2
+    [ _ _ _ ] // 3, 4, 5
+    [ _ _ _ ] // 6, 7, 8
+]
+
+arrBoard = [] // length = 9
