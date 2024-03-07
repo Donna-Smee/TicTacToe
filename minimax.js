@@ -12,4 +12,8 @@ function isEmptySpot(spot){
     return spot != X && spot != O;
 }
 
-module.exports = {getPossibleChoices};
+function hasWon(board, player){
+    return false;
+}
+
+module.exports = {getPossibleChoices, hasWon};
