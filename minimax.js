@@ -4,7 +4,7 @@ const O = "O";
 
 // Given a board (9 total spaces), return the spaces that are empty
 function getPossibleChoices(board){
-    return null;
+    return board.filter(isEmptySpot);
 }
 
 
