@@ -94,7 +94,7 @@ describe("Checking if the given player has won or not", () => {
     });
 
     test("[8] When there is no winner (tie). Ai and human is not the winner.", () => {
-        let board = [O, X, O, X, O, X, X, X, O];
+        let board = [X, O, X, X, O, X, O, X, O];
         expect(functions.hasWon(board, ai)).toBe(false); 
         expect(functions.hasWon(board, human)).toBe(false); 
     });
