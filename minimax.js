@@ -50,4 +50,9 @@ function hasWon(board, player){
     return false;
 }
 
-module.exports = {getPossibleChoices, hasWon};
+
+function bestValue(moves, player){
+    return null;
+}
+
+module.exports = {getPossibleChoices, hasWon, bestValue};

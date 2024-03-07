@@ -6,6 +6,13 @@ const O = "O";
 let ai = X;
 let human = O;
 
+const startValToMaximize = -100;
+const startValToMinize = 100;
+
+const maxVal = 10;
+const minVal = -10;
+const tieVal = 0;
+
 // let board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 /*
@@ -41,6 +48,9 @@ describe("Checking for possible choices", () => {
         expect(functions.getPossibleChoices(board)).toEqual([]);
     });
 });
+
+
+
 
 // All these tests will use ai as the player
 describe("Checking if the given player has won or not", () => {
@@ -111,14 +121,33 @@ describe("Checking if the given player has won or not", () => {
         expect(functions.hasWon(board, human)).toBe(false);
     });
 
-    
+
+});
 
 
 
 
+describe("Checking for best move", () => {
 
+    let moves = [{"spot": 1, "value": minVal}, {"spot": 2, "value": maxVal}, {"spot": 3, "value": tieVal}];
 
-    
+    test("[1] When AI is the player, the maximum value/spot is returned (spot = 2)", () => {
+        expect(functions.bestValue(moves, ai)).toEqual({"spot": 2, "value": maxVal});
+    });
+
+    test("[2] When human is the player, the maximum value/spot is returned (spot = 1)", () => {
+        expect(functions.bestValue(moves, human)).toEqual({"spot": 1, "value": minVal});
+    });
+
+    test("[3] When there are more than one value, return the first maximum (AI) value. Expected spot = 1" , () => {
+        let moves = [{"spot": 1, "value": maxVal}, {"spot": 2, "value": maxVal}, {"spot": 3, "value": tieVal}, {"spot": 4, "value": maxVal}];
+        expect(functions.bestValue(moves, ai)).toEqual({"spot": 1, "value": maxVal});
+    });
+
+    test("[4] When there are more than one value, return the first minimum (human) value. Expected spot = 2" , () => {
+        let moves = [{"spot": 1, "value": maxVal}, {"spot": 2, "value": minVal}, {"spot": 3, "value": minVal}, {"spot": 4, "value": maxVal}];
+        expect(functions.bestValue(moves, human)).toEqual({"spot": 2, "value": minVal});
+    });
 
 
 });
