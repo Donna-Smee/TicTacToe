@@ -105,4 +105,9 @@ function compareMaximize(bestVal, currVal){
     return false;
 }
 
-module.exports = {getPossibleChoices, hasWon, bestValue};
+
+function minimax(board, player){
+    return -10000;
+}
+
+module.exports = {getPossibleChoices, hasWon, bestValue, minimax};
