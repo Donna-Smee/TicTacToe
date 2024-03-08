@@ -124,27 +124,27 @@ describe("Checking if the given player has won or not", () => {
 
 
 
-
+// TODO: added count
 describe("Checking for best move", () => {
 
-    let moves = [{"spot": 1, "value": minVal}, {"spot": 2, "value": maxVal}, {"spot": 3, "value": tieVal}];
+    let moves = [{"spot": 1, "value": minVal, "count": 1}, {"spot": 2, "value": maxVal, "count": 3}, {"spot": 3, "value": tieVal, "count": 1}];
 
     test("[1] When AI is the player, the maximum value/spot is returned (spot = 2)", () => {
-        expect(functions.bestValue(moves, ai)).toEqual({"spot": 2, "value": maxVal});
+        expect(functions.bestValue(moves, ai)).toMatchObject({"spot": 2, "value": maxVal});
     });
 
     test("[2] When human is the player, the minimum value/spot is returned (spot = 1)", () => {
-        expect(functions.bestValue(moves, human)).toEqual({"spot": 1, "value": minVal});
+        expect(functions.bestValue(moves, human)).toMatchObject({"spot": 1, "value": minVal});
     });
 
-    test("[3] When there are more than one value, return the first maximum (AI) value. Expected spot = 1" , () => {
-        let moves = [{"spot": 1, "value": maxVal}, {"spot": 2, "value": maxVal}, {"spot": 3, "value": tieVal}, {"spot": 4, "value": maxVal}];
-        expect(functions.bestValue(moves, ai)).toEqual({"spot": 1, "value": maxVal});
+    test("[3] When there are more than one value, return the first maximum (AI) value that has the least count. Expected spot = 2" , () => {
+        let moves = [{"spot": 1, "value": maxVal, "count": 2}, {"spot": 2, "value": maxVal, "count": 1}, {"spot": 3, "value": tieVal, "count": 1}, {"spot": 4, "value": maxVal, "count": 1}];
+        expect(functions.bestValue(moves, ai)).toMatchObject({"spot": 2, "value": maxVal});
     });
 
     test("[4] When there are more than one value, return the first minimum (human) value. Expected spot = 2" , () => {
-        let moves = [{"spot": 1, "value": maxVal}, {"spot": 2, "value": minVal}, {"spot": 3, "value": minVal}, {"spot": 4, "value": maxVal}];
-        expect(functions.bestValue(moves, human)).toEqual({"spot": 2, "value": minVal});
+        let moves = [{"spot": 1, "value": maxVal, "count": 1}, {"spot": 2, "value": minVal, "count": 1}, {"spot": 3, "value": minVal, "count": 2}, {"spot": 4, "value": maxVal, "count": 1}];
+        expect(functions.bestValue(moves, human)).toMatchObject({"spot": 2, "value": minVal});
     });
 
 
@@ -173,17 +173,17 @@ describe("Checking for minimax algorithm", () => {
 
     test("[1] When ai (X) wins, maxVal should be returned.", () => {
         let board = [0, O, 2, X, X, X, 6, O, 8];
-        expect(functions.minimax(board, ai)).toBe(maxVal);
+        expect(functions.minimax(board, ai, 0)).toMatchObject({"value": maxVal});
     });
 
     test("[2] When human (O) wins, minVal should be returned.", () => {
         let board = [0, 1, O, 3, O, 5, O, X, X];
-        expect(functions.minimax(board, human)).toBe(minVal);
+        expect(functions.minimax(board, human, 0)).toMatchObject({"value": minVal});
     });
 
     test("[3] When the game ends in a tie, tieVal should be returned.", () => {
         let board = [X, O, X, X, O, O, O, X, X];
-        expect(functions.minimax(board, human)).toBe(tieVal);
+        expect(functions.minimax(board, human, 0)).toMatchObject({"value": tieVal});
     });
 
     /* TIC TAC TOE BOARD
@@ -198,7 +198,7 @@ describe("Checking for minimax algorithm", () => {
         |   |   |   | 
         Next move for ai should be 8  */
         let board = [X, O, O, 3, X, 5, 6, 7, 8];
-        expect(functions.minimax(board, ai)).toMatchObject({"spot": 8});
+        expect(functions.minimax(board, ai, 0)).toMatchObject({"spot": 8});
     });
 
     test("[5] When human (O) can make a winning move, and ai (X) cannot (immediately), human will take that move to win.", () => {
@@ -208,7 +208,7 @@ describe("Checking for minimax algorithm", () => {
         |   |   |   | 
         Next move for human should be 6  */
         let board = [O, X, X, O, 4, 5, 6, 7, 8];
-        expect(functions.minimax(board, human)).toMatchObject({"spot": 6});
+        expect(functions.minimax(board, human, 0)).toMatchObject({"spot": 6});
     });
 
     test("[6] When ai (X) can win, human cannot, and it's human's turn. Human will take the move to prevent ai from winning.", () => {
@@ -218,7 +218,7 @@ describe("Checking for minimax algorithm", () => {
         |   |   |   | 
         Next move for human should be 3  */
         let board = [0, 1, O, 3, X, X, 6, 7, 8];
-        expect(functions.minimax(board, human)).toMatchObject({"spot": 3});
+        expect(functions.minimax(board, human, 0)).toMatchObject({"spot": 3});
     });
 
     test("[7] When human (O) can win, ai cannot, and it's ai's turn. AI will take the move to prevent human from winning.", () => {
@@ -228,7 +228,7 @@ describe("Checking for minimax algorithm", () => {
         |   |   |   | 
         Next move for human should be 3  */
         let board = [0, 1, X, 3, O, O, 6, 7, 8];
-        expect(functions.minimax(board, ai)).toMatchObject({"spot": 3});
+        expect(functions.minimax(board, ai, 0)).toMatchObject({"spot": 3});
     });
 
     test("[8] When both ai and human are on the verge on winning, and it's ai's turn. AI should choose move to win.", () => {
@@ -238,7 +238,7 @@ describe("Checking for minimax algorithm", () => {
         |   |   |   | 
         Next move for human should be 6  */
         let board = [X, 1, O, X, 4, O, 6, 7, 8];
-        expect(functions.minimax(board, ai)).toMatchObject({"spot": 6});
+        expect(functions.minimax(board, ai, 0)).toMatchObject({"spot": 6});
     });
 
     test("[9] When both ai and human are on the verge on winning, and it's human's turn. Human should choose move to win.", () => {
@@ -248,7 +248,7 @@ describe("Checking for minimax algorithm", () => {
         |   |   |   | 
         Next move for human should be 8  */
         let board = [X, 1, O, X, 4, O, 6, 7, 8];
-        expect(functions.minimax(board, human)).toMatchObject({"spot": 8});
+        expect(functions.minimax(board, human, 0)).toMatchObject({"spot": 8});
     });
 
     test("[10] When neither ai nor human are on the verge of winning (in the next move), but eventually someone could win. It is ai's turn, ai could win.", () => {
@@ -260,7 +260,7 @@ describe("Checking for minimax algorithm", () => {
         // See pdf to understand logic. 
 
         let board = [0, X, 2, O, O, X, 6, O, 8];
-        expect(functions.minimax(board, ai)).toEqual({"spot": 2, "value": maxVal});
+        expect(functions.minimax(board, ai, 0)).toMatchObject({"spot": 2, "value": maxVal});
     }); 
 
 

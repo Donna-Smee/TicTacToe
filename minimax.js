@@ -5,6 +5,9 @@ const O = "O";
 let ai = X;
 let human = O;
 
+const maxVal = 10;
+const minVal = -10;
+const tieVal = 0;
 
 // Given a board (9 total spaces), return the spaces that are empty
 function getPossibleChoices(board){
@@ -79,35 +82,91 @@ function computeBestValue(moves, comparingFunction, startValue){
 
     let bestVal = startValue;
     let bestMove = null;
+    let minimalCount = 100000;
 
     for (let i = 0; i < moves.length; ++i){
-        if (comparingFunction(bestVal, moves[i].value)){
+        if (comparingFunction(bestVal, moves[i].value, minimalCount, moves[i].count)){
             bestVal = moves[i].value;
             bestMove = moves[i];
+            minimalCount = moves[i].count;
         }
     }
     return bestMove;
 }
 
 // returns true if the currVal is larger than the bestVal
-function compareMinimize(bestVal, currVal){
+function compareMinimize(bestVal, currVal, currMinimalCount, thisMinimalCount){
     if (currVal < bestVal){
         return true;
+    } else if (currVal == bestVal){
+        if (thisMinimalCount < currMinimalCount){
+            return true;
+        }
     }
     return false;
 }
 
 // returns true if the currVal is smaller than the bestVal
-function compareMaximize(bestVal, currVal){
+function compareMaximize(bestVal, currVal, currMinimalCount, thisMinimalCount){
     if (currVal > bestVal){
         return true;
+    } else if (currVal == bestVal){
+        if (thisMinimalCount < currMinimalCount){
+            return true;
+        }
     }
     return false;
 }
 
 
-function minimax(board, player){
-    return -10000;
+// Given a board and the current player, minimax returns the best next move the player should make
+function minimax(board, player, count){
+
+
+    let possibleChoices = getPossibleChoices(board);
+    let numChoices = possibleChoices.length;
+
+
+    // Check for terminal states
+    if (hasWon(board, ai)){
+        return {"value": maxVal, "count": count};
+    }else if (hasWon(board, human)){
+        return {"value": minVal, "count": count};
+    }else {
+        if (numChoices == 0){
+            return {"value": tieVal, "count": count};
+        }
+    }
+    
+
+    // set the next player
+    let nextPlayer = null;
+    if (player == ai){
+        nextPlayer = human;
+    }else {
+        nextPlayer = ai;
+    }
+
+    let moves = [];
+    // loop through all possible choices
+    for (let i = 0; i < numChoices; ++i){
+        let thisMove = {};
+        thisMove.spot = possibleChoices[i];
+        
+        // temporary put the move on the board
+        board[thisMove.spot] = player;
+        let result = minimax(board, nextPlayer, count+1)
+        thisMove.value = result.value;
+        thisMove.count = result.count;
+
+        moves.push(thisMove);
+        // remove the move (revert board to before)
+        board[thisMove.spot] = possibleChoices[i];
+    }
+
+    return bestValue(moves, player);
+
 }
+
 
 module.exports = {getPossibleChoices, hasWon, bestValue, minimax};
