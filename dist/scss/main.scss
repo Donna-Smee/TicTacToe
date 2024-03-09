@@ -32,7 +32,7 @@ body {
     height: $game-container-height;
 }
 
-#game-board, #start-screen, #chooseXO-screen {
+#game-board, #start-screen, #chooseXO-screen, #randomize-who-starts-screen {
  
     width: $ttt-width;
     height: $ttt-height;
@@ -141,7 +141,9 @@ body {
     
 }
 
+
+
 // hide it at the start
-#game-board, #chooseXO-screen {
+#game-board, #chooseXO-screen, #randomize-who-starts-screen  {
     display: none;
 }
