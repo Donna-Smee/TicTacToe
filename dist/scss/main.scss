@@ -22,9 +22,7 @@ body {
     border: 2px purple dotted;
 }
 
-#game {
-    border: 1px red solid;
-}
+
 
 #game-container {
     @include centered;
@@ -54,7 +52,7 @@ body {
 }
 
 #title {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.8em;
 }
 
 #chooseXO-screen {
@@ -81,6 +79,67 @@ body {
     
 }
 
+
+#game-board {
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0.8em;
+    justify-content:space-evenly;
+    
+    div {
+        width: $space-width-height;
+        height: $space-width-height;
+        &:hover {
+            cursor: pointer;
+        }
+        @include centered();
+        font-size: 300%;
+        font-family: Helvetica, sans-serif;
+        color: white;
+        background-color: black;
+
+    }
+
+    // #S0 {
+    //     border-top: none;
+    //     border-left: none;
+    // }
+
+    // #S1 {
+    //     border-top: none;
+    // }
+
+    // #S2 {
+    //     border-top: none;
+    //     border-right: none;
+    // }
+
+    // #S3 {
+    //     border-left: none;
+    // }
+
+    // #S5 {
+    //     border-right: none;
+    // }
+
+    // #S6 {
+    //     border-left: none;
+    //     border-bottom: none;
+    // }
+
+    // #S7 {
+    //     border-bottom: none;
+    // }
+
+    // #S8 {
+    //     border-right: none;
+    //     border-bottom: none;
+    // }
+
+
+    
+}
 
 // hide it at the start
 #game-board, #chooseXO-screen {

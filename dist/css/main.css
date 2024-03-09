@@ -14,10 +14,6 @@ body {
   border: 2px purple dotted;
 }
 
-#game {
-  border: 1px red solid;
-}
-
 #game-container {
   display: flex;
   justify-content: center;
@@ -50,7 +46,7 @@ body {
 }
 
 #title {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.8em;
 }
 
 #chooseXO-screen {
@@ -75,6 +71,27 @@ body {
   height: 60px;
 }
 #chooseXO-screen button:hover {
+  cursor: pointer;
+}
+
+#game-board {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.8em;
+  justify-content: space-evenly;
+}
+#game-board div {
+  width: 98px;
+  height: 98px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 300%;
+  font-family: Helvetica, sans-serif;
+  color: white;
+  background-color: black;
+}
+#game-board div:hover {
   cursor: pointer;
 }
 
