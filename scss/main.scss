@@ -1,0 +1,88 @@
+@import "./variables";
+@import "./buttons";
+
+
+@mixin centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body, html {
+    height: 100%;
+}
+
+body {   
+    @include centered;
+    border: 2px purple dotted;
+}
+
+#game {
+    border: 1px red solid;
+}
+
+#game-container {
+    @include centered;
+    flex-direction: column;
+    border: 2px solid black;
+    width: $game-container-width;
+    height: $game-container-height;
+}
+
+#game-board, #start-screen, #chooseXO-screen {
+ 
+    width: $ttt-width;
+    height: $ttt-height;
+    
+}
+
+
+
+#start-screen {
+    @include centered();
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    button {
+        @include basic-button;
+    }
+}
+
+#title {
+    margin-bottom: 0.5em;
+}
+
+#chooseXO-screen {
+    @include centered();
+
+    flex-direction: column;
+
+    h3 {
+        margin-bottom: 2em;
+    }
+    
+
+    #XO-choice-buttons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    button {
+        @include basic-button;
+        margin: 1em;
+        width: 60px;
+        height: 60px;
+    }
+    
+}
+
+
+// hide it at the start
+#game-board, #chooseXO-screen {
+    display: none;
+}
