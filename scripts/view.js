@@ -6,11 +6,14 @@ const yourTurnMsg = "YOUR TURN";
 
 // Get the turn message to show to the user
 function getTurnMessage(player){
-    if (player == "p1"){
+    if (player == player1Str){
         if (singlePlayerMode){return yourTurnMsg;}
         return player1TurnMsg;
+    }else if (player == player2Str){
+        return player2TurnMsg;
     }
-    return player2TurnMsg;
+    return aiTurnMsg;
+    
 }
 
 function showTurn(message){

@@ -1,13 +1,18 @@
 let singlePlayerMode = false;
 let multiPlayerMode = false;
 
+const player1Str = "p1";
+const player2Str = "p2";
+const aiStr = "ai";
+
 const X = "X";
 const O = "O";
 
 let player1 = null;
 let player2 = null;
-
 let ai = null;
+
+let currentPlayer = null;
 
 function resetData(){
     singlePlayerMode = false;
@@ -15,6 +20,7 @@ function resetData(){
     player1 = null;
     player2 = null;
     ai = null;
+    currentPlayer = null;
 }
 
 function setSinglePlayerMode(){
@@ -63,8 +69,26 @@ function initiateSinglePlayerGame(){
 function startGame(){
     hideChooseXOScreen();
     showGameBoard();
+    currentPlayer = randomFirstPlayer();
+    showTurn(getTurnMessage(currentPlayer));
 }
 
+
+
+// randomize to choose who goes first (0 means player 1 goes first, 1 means player2/ai goes first)
+function randomFirstPlayer(){
+    // get a random int from 0 to 1
+    let randNum = Math.floor(Math.random() * 2);
+
+    if (randNum == 0){
+        return player1Str;
+    } 
+
+    if (singlePlayerMode){
+        return aiStr;
+    }
+    return player2Str;
+}
 
 
 
