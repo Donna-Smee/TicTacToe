@@ -8,7 +8,6 @@ $(document).ready(() => {
     $(".XO-button").click(function(){
         setPlayers(this.value);
         startGame();
-       
     });
 
     
