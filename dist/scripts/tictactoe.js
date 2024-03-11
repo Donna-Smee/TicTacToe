@@ -15,14 +15,18 @@ let ai = null;
 
 let currentPlayer = null;
 
+let board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+
 function resetData(){
     singlePlayerMode = false;
     multiPlayerMode = false;
     player1 = null;
     player2 = null;
     ai = null;
-    human = null;
     currentPlayer = null;
+    board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    // reset display
 }
 
 function setSinglePlayerMode(){
@@ -51,20 +55,24 @@ function setPlayers(choice){
     player1 = choice;
     
     if (singlePlayerMode){
-        human = choice;
         ai = otherChoice(choice);
     }else {
         player2 = otherChoice(choice);
     }
-    console.log("ME: " + player1);
-    console.log("AI: " + ai);
+
 }
 
 // Player chose single player mode
 // show the next screen to prompt for X or O choice
-function initiateSinglePlayerGame(){
+function initiateGame(isSinglePlayerGame){
     resetData();    
-    setSinglePlayerMode();
+
+    if (isSinglePlayerGame){
+        setSinglePlayerMode();
+    }else {
+        setMultiPlayerMode();
+    }
+    
 
     hideStartScreen();
     showChooseXOScreen();
@@ -76,23 +84,55 @@ function initiateSinglePlayerGame(){
 
 
 
+
 // randomize to choose who goes first (0 means player 1 goes first, 1 means player2/ai goes first)
 function randomFirstPlayer(){
     // get a random int from 0 to 1
-    /*let randNum = Math.floor(Math.random() * 2);
+    let randNum = Math.floor(Math.random() * 2);
 
     if (randNum == 0){
+        currentPlayer = player1Str;
         return player1Str;
     } 
 
     if (singlePlayerMode){
+        currentPlayer = aiStr;
         return aiStr;
     }
-    return player2Str;*/
-    return aiStr;
+    currentPlayer = player2Str;
+    return player2Str;
+    //return aiStr;
 }
 
+function setCurrentPlayer(playerS){
+    currentPlayer = playerS;
+}
+
+function switchToNextPlayer(){
+    if (singlePlayerMode){
+        if (currentPlayer == player1Str){
+            currentPlayer = aiStr;
+        }else {
+            currentPlayer = player1Str;
+        }
+    }else {
+        if (currentPlayer == player1Str){
+            currentPlayer = player2Str;
+        }else {
+            currentPlayer = player1Str;
+        }
+    }
+}
+
+function nextPlayer(){
+    switchToNextPlayer();
+    showTurn(getTurnMessage(currentPlayer));
+}
+
+
+
 // gets the current board from the webpage and turn into array
+// for testing
 function getCurrentBoard(){
     let spaces = ["#S0", "#S1", "#S2", "#S3", "#S4", "#S5", "#S6", "#S7", "#S8"];
     let board = [];
@@ -110,34 +150,87 @@ function getCurrentBoard(){
             }
         }
     }
-    console.log(board);
+
     return board;   
 }
 
 
 function startGame(){
     hideChooseXOScreen();
-    showGameBoard();
     currentPlayer = randomFirstPlayer();
     showTurn(getTurnMessage(currentPlayer));
-    startSinglePlayerGame();
+    showGameBoard();
+   // startSinglePlayerGame();
 }
 
 
 function startSinglePlayerGame(){
-    let board = getCurrentBoard();
+    
 
     let copyBoard = [...board];
-    
-    let numChoices = getPossibleChoices(copyBoard);
 
-   // while (numChoices > 0){
-        if (currentPlayer == aiStr){
-            let nextMove = minimax(copyBoard, ai, 0);
-            alert(nextMove.spot);
-        }
-   // }
+    // if (currentPlayer == aiStr){
+    //     let nextMove = minimax(copyBoard, ai, 0);
+    //     alert(nextMove.spot);
+    // }
+
+    console.log(board);
+    console.log(player1);
+    console.log(player2);
+    console.log(ai);
+
 
 }
+
+function getPlayerMark(player){
+    if (player == player1Str){
+        return player1;
+    }else if (player == player2Str){
+        return player2;
+    }
+    return ai;
+}
+
+
+function playMove(spotIndex){
+    // don't do anything if the spot is taken already
+    if (board[spotIndex] == X || board[spotIndex] == O){
+        return;
+    }
+
+    let currentPlayerMark = getPlayerMark(currentPlayer);
+    board[spotIndex] = currentPlayerMark;
+    updateBoardDisplay(board);
+
+    // check if game over
+    if (hasWon(board, currentPlayerMark)){
+        endGame(true);
+    }else if (getPossibleChoices(board).length == 0){
+        endGame(false);
+    }else {
+        nextPlayer();
+   
+    }
+
+    
+}
+
+
+function endGame(isAWinner){
+    if (isAWinner){
+        showTurn(getWinningMessage(currentPlayer));
+    }else {
+        showTurn(tieMessage);
+    }
+    
+    
+    // disable game
+    disableClicking();
+
+    // show play again option or home option
+}
+
+
+ 
 
 

@@ -18,3 +18,25 @@ function hideChooseXOScreen(){
 function showGameBoard(){
     $("#game-board").css("display", "flex");
 }
+
+function updateBoardDisplay(board){
+    let boardSize = board.length;
+    if (boardSize != 9){
+        return;
+    }
+
+    for (let i = 0; i < boardSize; ++i){
+        let boardSpot = board[i];
+        if (boardSpot == X || boardSpot == O){
+            $("#S" + i).html(boardSpot);
+        }
+    }
+}
+
+function disableClicking(){
+    $("#game-board").css("pointer-events", "none");
+}
+
+function enableClicking(){
+    $("#game-board").css("pointer-events", "auto");
+}
