@@ -179,8 +179,8 @@ function minimax(board, player, count){
 
 // TESTING 
 
-let board = [0, X, 2, O, O, 5, 6, 7, 8];
-console.log(minimax(board, O, 0));
+// let board = [0, X, 2, O, O, 5, 6, 7, 8];
+// console.log(minimax(board, O, 0));
 
 // let board = [0, 1, O, 3, X, X, 6, 7, 8];
 // console.log(minimax(board, human, 0));
@@ -188,7 +188,7 @@ console.log(minimax(board, O, 0));
 // let board = [0, 1, X, 3, O, O, 6, 7, 8];
 // console.log(minimax(board, ai, 0));
 
-module.exports = {getPossibleChoices, hasWon, bestValue, minimax};
+//module.exports = {getPossibleChoices, hasWon, bestValue, minimax};
 
 
 

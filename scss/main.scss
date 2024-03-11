@@ -147,3 +147,12 @@ body {
 #game-board, #chooseXO-screen, #randomize-who-starts-screen  {
     display: none;
 }
+
+.space {
+    pointer-events: none;
+
+    &:hover {
+        cursor: auto;
+    }
+
+}
