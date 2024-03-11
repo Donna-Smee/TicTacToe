@@ -159,26 +159,19 @@ function startGame(){
     hideChooseXOScreen();
     currentPlayer = randomFirstPlayer();
     showTurn(getTurnMessage(currentPlayer));
+    updateClickEnabling();
     showGameBoard();
    // startSinglePlayerGame();
+
+   if (currentPlayer == aiStr){
+        haveComputerPlay();
+
+   }
 }
 
 
 function startSinglePlayerGame(){
     
-
-    let copyBoard = [...board];
-
-    // if (currentPlayer == aiStr){
-    //     let nextMove = minimax(copyBoard, ai, 0);
-    //     alert(nextMove.spot);
-    // }
-
-    console.log(board);
-    console.log(player1);
-    console.log(player2);
-    console.log(ai);
-
 
 }
 
@@ -198,6 +191,8 @@ function playMove(spotIndex){
         return;
     }
 
+    updateClickEnabling();
+
     let currentPlayerMark = getPlayerMark(currentPlayer);
     board[spotIndex] = currentPlayerMark;
     updateBoardDisplay(board);
@@ -209,12 +204,31 @@ function playMove(spotIndex){
         endGame(false);
     }else {
         nextPlayer();
+        updateClickEnabling();
+        if (singlePlayerMode && currentPlayer == aiStr){
+            // Computer's turn
+            haveComputerPlay();
+            
+        }
    
     }
-
-    
 }
 
+
+function updateClickEnabling(){
+    if (currentPlayer == aiStr){
+        disableClicking();
+    }else {
+        enableClicking();
+    }
+}
+
+function haveComputerPlay(){
+    setTimeout(function(){
+        let nextMove = minimax(board, getPlayerMark(currentPlayer), 0);
+        playMove(nextMove.spot);
+    }, 400);
+}
 
 function endGame(isAWinner){
     if (isAWinner){
