@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="./css/main.css">
     <script src="./scripts/jQuery.js"></script>
     <script src="./scripts/minimax.js"></script>
@@ -17,6 +19,10 @@
 <body>
     <section id="game">
         <div id="game-container">
+            <div id="nav-button-container">
+                <i class="fa fa-home icon" id="home-button"></i>
+                <i class="material-icons icon" id="play-again-button">refresh</i>
+            </div>
             <h1 id="title">TIC TAC TOE</h1>
             <div id="start-screen">
                 <button id="single-button" value="single" class="not-clickable">Single Player</button>
@@ -43,8 +49,7 @@
                 <div id="S7" class="space"></div>
                 <div id="S8" class="space"></div>
             </div>
-            <div id="turn-message">TURN</div>
-            
+            <div id="turn-message"></div>
         </div>
     </section>
 </body>

@@ -6,9 +6,6 @@ const player1Str = "p1";
 const player2Str = "p2";
 const aiStr = "ai";
 
-// const X = "X";
-// const O = "O";
-
 let player1 = null;
 let player2 = null;
 let ai = null;
@@ -18,15 +15,20 @@ let currentPlayer = null;
 let board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 
-function resetData(){
-    singlePlayerMode = false;
-    multiPlayerMode = false;
+function resetData(fullReset){
+    if (fullReset){
+        singlePlayerMode = false;
+        multiPlayerMode = false;
+    }
+    
     player1 = null;
     player2 = null;
     ai = null;
     currentPlayer = null;
     board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     // reset display
+    clearBoard(board.length);
+    showTurn("");
 }
 
 function setSinglePlayerMode(){
@@ -78,8 +80,6 @@ function initiateGame(isSinglePlayerGame){
     showChooseXOScreen();
     
 }
-
-
 
 
 
@@ -161,18 +161,11 @@ function startGame(){
     showTurn(getTurnMessage(currentPlayer));
     updateClickEnabling();
     showGameBoard();
-   // startSinglePlayerGame();
 
    if (currentPlayer == aiStr){
         haveComputerPlay();
 
    }
-}
-
-
-function startSinglePlayerGame(){
-    
-
 }
 
 function getPlayerMark(player){
@@ -237,14 +230,28 @@ function endGame(isAWinner){
         showTurn(tieMessage);
     }
     
-    
     // disable game
     disableClicking();
 
-    // show play again option or home option
 }
 
 
- 
+function goHome(){
+    resetData(true);
+    hideChooseXOScreen();
+    hideGameBoard();
+    showStartScreen();
+}
+
+ function playAgain(){
+    // if we're on the home page, do nothing
+    if (!singlePlayerMode && !multiPlayerMode){
+        return;
+    }
+    resetData(false);
+    hideStartScreen();
+    hideGameBoard();
+    showChooseXOScreen();
+ }
 
 
