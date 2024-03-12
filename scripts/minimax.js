@@ -2,9 +2,6 @@
 const X = "X";
 const O = "O";
 
-// let ai = X;
-// let human = O;
-
 const maxVal = 10;
 const minVal = -10;
 const tieVal = 0;
@@ -19,11 +16,6 @@ function isEmptySpot(spot){
     return spot != X && spot != O;
 }
 
-/*
-    0, 1, 2
-    3, 4, 5
-    6, 7, 8 
-*/
 
 /*
 -- Possible Wins --
@@ -57,66 +49,7 @@ function hasWon(board, player){
     return false;
 }
 
-// Given a list of moves, and the player (either ai or human), gets the best move
-// Gets move with max value for ai
-// Gets move with min value for human
-// Assumes moves array has at least 1 move
-// function bestValue(moves, player){
-//     if (moves.length == 1){return moves[0];}
 
-//     const startValToMaximize = -100;
-//     const startValToMinize = 100;
-
-
-//     // ai wants to maximize the value
-//     if (player == ai){
-//         return computeBestValue(moves, compareMaximize, startValToMaximize);
-//     }
-//     return computeBestValue(moves, compareMinimize, startValToMinize);
-    
-
-// }
-
-// // Gets the best value given the moves, a function that determines if this move is better
-// function computeBestValue(moves, comparingFunction, startValue){
-
-//     let bestVal = startValue;
-//     let bestMove = null;
-//     let minimalCount = 100000;
-
-//     for (let i = 0; i < moves.length; ++i){
-//         if (comparingFunction(bestVal, moves[i].value, minimalCount, moves[i].count)){
-//             bestVal = moves[i].value;
-//             bestMove = moves[i];
-//             minimalCount = moves[i].count;
-//         }
-//     }
-//     return bestMove;
-// }
-
-// // returns true if the currVal is larger than the bestVal
-// function compareMinimize(bestVal, currVal, currMinimalCount, thisMinimalCount){
-//     if (currVal < bestVal){
-//         return true;
-//     } else if (currVal == bestVal){
-//         if (thisMinimalCount < currMinimalCount){
-//             return true;
-//         }
-//     }
-//     return false;
-// }
-
-// // returns true if the currVal is smaller than the bestVal
-// function compareMaximize(bestVal, currVal, currMinimalCount, thisMinimalCount){
-//     if (currVal > bestVal){
-//         return true;
-//     } else if (currVal == bestVal){
-//         if (thisMinimalCount < currMinimalCount){
-//             return true;
-//         }
-//     }
-//     return false;
-// }
 
 
 // Given a board and the current player, minimax returns the best next move the player should make
@@ -177,20 +110,6 @@ function minimax(board, player, count){
 }
 
 
-// TESTING 
-
-// let board = [0, X, 2, O, O, 5, 6, 7, 8];
-// console.log(minimax(board, O, 0));
-
-// let board = [0, 1, O, 3, X, X, 6, 7, 8];
-// console.log(minimax(board, human, 0));
-
-// let board = [0, 1, X, 3, O, O, 6, 7, 8];
-// console.log(minimax(board, ai, 0));
-
-//module.exports = {getPossibleChoices, hasWon, bestValue, minimax};
-
-
 
 
 
@@ -210,19 +129,7 @@ function bestCount(baseCount, comparisonCount, wantedValueFound){
     }
 }
 
-function isWantedValue(player, value){
-    if (player == X){
-        if (value == maxVal){
-            return true;
-        }
-        return false;
-    }else {
-        if (value == minVal){
-            return true;
-        }
-        return false;
-    }
-}
+
 
 function getWantedValue(player){
     if (player == X){
@@ -237,6 +144,11 @@ function getBaseCount(player, wantedValueFound){
     }
     return -100000;
 }
+
+
+
+
+
 
 function bestValue(moves, player, wantedValueFound){
     if (moves.length == 1){return moves[0];}
@@ -254,8 +166,6 @@ function bestValue(moves, player, wantedValueFound){
     return computeBestValue(moves, compareMinimize, startValToMinize, baseCount, wantedValueFound);
 
 }
-
-
 
 
 // Gets the best value given the moves, a function that determines if this move is better
@@ -298,3 +208,7 @@ function compareMaximize(bestVal, currVal, currCount, newCount, wantedValueFound
     }
     return false;
 }
+
+
+
+// module.exports = {getPossibleChoices, hasWon, bestValue, minimax};

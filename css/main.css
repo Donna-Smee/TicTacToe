@@ -11,7 +11,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px purple dotted;
 }
 
 #game-container {
@@ -19,9 +18,18 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 2px solid black;
+  border: 0.3em solid black;
   width: 500px;
   height: 500px;
+  position: relative;
+}
+#game-container #nav-button-container {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 1em;
 }
 
 #game-board, #start-screen, #chooseXO-screen, #randomize-who-starts-screen {
@@ -97,4 +105,11 @@ body {
 
 #game-board, #chooseXO-screen, #randomize-who-starts-screen {
   display: none;
+}
+
+.icon {
+  font-size: 2em;
+}
+.icon:hover {
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

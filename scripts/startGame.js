@@ -17,7 +17,13 @@ $(document).ready(() => {
         playMove(getSpaceIndex(this));
     });
 
-    
+    $("#home-button").click(() => {
+        goHome();
+    });
+
+    $("#play-again-button").click(() => {
+        playAgain();
+    });
 
     
 });
