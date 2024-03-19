@@ -11,6 +11,7 @@
 * {
     padding: 0;
     margin: 0;
+    font-family: "JetBrains Mono", monospace;
     
 }
 
@@ -27,10 +28,10 @@ body {
 #game-container {
     @include centered;
     flex-direction: column;
-    border: 0.3em solid black;
     width: $game-container-width;
     height: $game-container-height;
     position: relative;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     #nav-button-container {
         position: absolute;
@@ -110,7 +111,7 @@ body {
         font-family: Helvetica, sans-serif;
         color: white;
         background-color: black;
-
+        
     }
     
 }
@@ -124,10 +125,15 @@ body {
     display: none;
 }
 
+
+
+
 .icon {
     font-size: 2em;
 
     &:hover {
         cursor: pointer;
+        transform: scale(1.3);
+        transition-duration: 200ms;
     }
 }
